@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details - Online Library</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background:
+                linear-gradient(rgba(10,25,40,.65), rgba(10,25,40,.70)),
+                url("/static/images/3.jpeg") center / cover fixed no-repeat;
+            color: white;
+        }
+
+        header {
+            padding: 20px 7%;
+            background: rgba(16,45,70,.85);
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 55px auto;
+            padding: 25px;
+        }
+
+        .details {
+            display: flex;
+            gap: 35px;
+            flex-wrap: wrap;
+            background: rgba(255,255,255,.96);
+            color: #24344d;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px #00000035;
+        }
+
+        .details img {
+            width: 260px;
+            height: 330px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .info {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .info h1 {
+            color: #2457a7;
+            margin-bottom: 20px;
+        }
+
+        .info p {
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        .available {
+            color: green;
+            font-weight: bold;
+        }
+
+        .unavailable {
+            color: red;
+            font-weight: bold;
+        }
+
+        .borrow-button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 13px 22px;
+            background: #2457a7;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .borrow-button:hover {
+            background: #183b70;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="{{ url_for('view_books') }}">
+            ← Back to Books
+        </a>
+    </header>
+
+    <main class="container">
+        <div class="details">
+
+            {% if book.cover_image %}
+                <img src="{{ url_for('static', filename='images/' ~ book.cover_image) }}"
+                     alt="{{ book.title }} cover">
+            {% else %}
+                <img src="{{ url_for('static', filename='images/home_bg.jpeg') }}"
+                     alt="Book cover placeholder">
+            {% endif %}
+
+            <div class="info">
+                <h1>{{ book.title }}</h1>
+
+                <p><strong>Author:</strong> {{ book.author }}</p>
+
+                <p>
+                    <strong>Category:</strong>
+                    {{ book.category_name or 'Uncategorized' }}
+                </p>
+
+                <p><strong>Description:</strong></p>
+
+                <p>
+                    {{ book.description or 'No description available.' }}
+                </p>
+
+                <p>
+                    <strong>Total Quantity:</strong>
+                    {{ book.quantity }}
+                </p>
+
+                <p>
+                    <strong>Available Quantity:</strong>
+                    {{ book.available_quantity }}
+                </p>
+
+                {% if book.available_quantity > 0 %}
+                    <p class="available">Available for borrowing</p>
+
+                    <form method="POST"
+                          action="{{ url_for('borrow_book', book_id=book.id) }}">
+                        <button type="submit" class="borrow-button">
+                            Borrow This Book
+                        </button>
+                    </form>
+                {% else %}
+                    <p class="unavailable">Currently unavailable</p>
+                {% endif %}
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>

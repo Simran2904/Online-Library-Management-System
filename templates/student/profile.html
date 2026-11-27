@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile - Online Library</title>
+
+    <style>
+
+        /* GENERAL STYLING */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+
+            /* PROFILE BACKGROUND IMAGE */
+
+            background:
+                linear-gradient(
+                    rgba(10, 25, 40, 0.40),
+                    rgba(10, 25, 40, 0.50)
+                ),
+                url("/static/images/profile.jpg");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 30px 15px;
+        }
+
+
+        /* PROFILE CONTAINER */
+
+        .container {
+            width: 90%;
+            max-width: 650px;
+
+            padding: 35px;
+
+            /* TRANSPARENT BOX */
+
+            background: rgba(255, 255, 255, 0.15);
+
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+
+            border: 1px solid rgba(255, 255, 255, 0.3);
+
+            border-radius: 12px;
+
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+        }
+
+
+        /* BACK TO DASHBOARD */
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            color: #ffe09a;
+        }
+
+
+        /* PROFILE ICON */
+
+        .profile-icon {
+            text-align: center;
+            font-size: 65px;
+            margin: 20px 0;
+        }
+
+
+        /* HEADING */
+
+        h1 {
+            color: white;
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 25px;
+        }
+
+
+        /* PROFILE INFORMATION */
+
+        .profile-info {
+            margin-top: 20px;
+        }
+
+        .profile-info p {
+            padding: 15px;
+
+            background: rgba(255, 255, 255, 0.18);
+
+            border: 1px solid rgba(255, 255, 255, 0.2);
+
+            border-radius: 6px;
+
+            margin-bottom: 12px;
+
+            color: white;
+
+            line-height: 1.6;
+        }
+
+        .profile-info strong {
+            color: #ffe09a;
+        }
+
+
+        /* LOGOUT BUTTON */
+
+        .logout {
+            display: block;
+            width: fit-content;
+
+            margin: 25px auto 0;
+
+            padding: 12px 25px;
+
+            background: rgba(217, 54, 54, 0.9);
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 6px;
+
+            transition: 0.3s;
+        }
+
+        .logout:hover {
+            background: #a82020;
+            transform: translateY(-3px);
+        }
+
+
+        /* MOBILE RESPONSIVE DESIGN */
+
+        @media (max-width: 600px) {
+
+            .container {
+                width: 100%;
+                padding: 25px 18px;
+            }
+
+            h1 {
+                font-size: 27px;
+            }
+
+            .profile-icon {
+                font-size: 50px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <main class="container">
+
+        <!-- BACK TO DASHBOARD -->
+
+        <a class="back-link"
+           href="{{ url_for('student_dashboard') }}">
+            ← Back to Dashboard
+        </a>
+
+
+        <!-- PROFILE ICON -->
+
+        <div class="profile-icon">
+            👤
+        </div>
+
+
+        <!-- PROFILE HEADING -->
+
+        <h1>My Profile</h1>
+
+
+        <!-- STUDENT INFORMATION -->
+
+        <div class="profile-info">
+
+            <p>
+                <strong>Full Name:</strong><br>
+                {{ user.name }}
+            </p>
+
+            <p>
+                <strong>Email Address:</strong><br>
+                {{ user.email }}
+            </p>
+
+            <p>
+                <strong>Account Type:</strong><br>
+                Student
+            </p>
+
+            <p>
+                <strong>Member Since:</strong><br>
+                {{ user.created_at }}
+            </p>
+
+        </div>
+
+
+        <!-- LOGOUT BUTTON -->
+
+        <a class="logout"
+           href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </main>
+
+</body>
+
+</html>

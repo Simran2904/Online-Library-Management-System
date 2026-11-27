@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Books - Online Library</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background:
+                linear-gradient(rgba(10,25,40,.65), rgba(10,25,40,.70)),
+                url("/static/images/2.jpeg") center / cover fixed no-repeat;
+            color: white;
+        }
+
+        header {
+            padding: 20px 7%;
+            background: rgba(16,45,70,.85);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .book-card {
+            background: rgba(255,255,255,.95);
+            color: #24344d;
+            padding: 22px;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px #00000030;
+        }
+
+        .book-card h2 {
+            color: #2457a7;
+            margin-bottom: 12px;
+        }
+
+        .book-card p {
+            margin: 10px 0;
+        }
+
+        .status {
+            font-weight: bold;
+            color: #16833b;
+        }
+
+        .returned {
+            color: #2457a7;
+        }
+
+        .empty {
+            background: rgba(255,255,255,.95);
+            color: #24344d;
+            padding: 30px;
+            margin-top: 25px;
+            border-radius: 10px;
+        }
+
+        .empty a {
+            display: inline-block;
+            margin-top: 15px;
+            background: #2457a7;
+            color: white;
+            padding: 11px 18px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .return-button {
+            border: none;
+            background: #d93636;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h2>📚 Online Library</h2>
+        <a href="{{ url_for('student_dashboard') }}">
+            ← Back to Dashboard
+        </a>
+    </header>
+
+    <main class="container">
+        <h1>My Borrowed Books</h1>
+
+        {% if issued_books %}
+            {% for item in issued_books %}
+                <div class="book-card">
+                    <h2>{{ item.title }}</h2>
+
+                    <p><strong>Author:</strong> {{ item.author }}</p>
+                    <p><strong>Issue Date:</strong> {{ item.issue_date }}</p>
+                    <p><strong>Return Date:</strong> {{ item.return_date }}</p>
+
+                    {% if item.status == 'returned' %}
+                        <p class="status returned">Returned</p>
+                    {% else %}
+                        <p class="status">Currently Borrowed</p>
+
+                        <form method="POST"
+                              action="{{ url_for('return_book', issue_id=item.id) }}">
+                            <button class="return-button" type="submit">
+                                Return Book
+                            </button>
+                        </form>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty">
+                <h3>You haven't borrowed any books yet.</h3>
+                <p>Browse the library to discover books.</p>
+                <a href="{{ url_for('view_books') }}">Browse Books</a>
+            </div>
+        {% endif %}
+    </main>
+
+</body>
+</html>

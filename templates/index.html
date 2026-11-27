@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Online Library Management System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header class="navbar">
+        <div class="logo">📚 Online Library</div>
+
+        <nav>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('register') }}" class="nav-button">
+                Register
+            </a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <p class="welcome-text">WELCOME TO YOUR DIGITAL LIBRARY</p>
+
+            <h1>
+                Discover a World<br>
+                of Knowledge
+            </h1>
+
+            <p class="hero-description">
+                Explore thousands of books, discover new ideas,
+                and make reading a part of your everyday life.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="{{ url_for('login') }}" class="primary-button">
+                    Explore Books
+                </a>
+
+                <a href="{{ url_for('register') }}" class="secondary-button">
+                    Join Our Library
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <h2>Explore Our Library</h2>
+        <p class="section-description">
+            Everything you need for a better reading experience.
+        </p>
+
+        <div class="feature-container">
+
+            <div class="feature-card">
+                <div class="feature-icon">📖</div>
+                <h3>Explore Books</h3>
+                <p>
+                    Discover books from different categories
+                    and explore new subjects.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3>Easy Search</h3>
+                <p>
+                    Find your favorite books quickly
+                    using our book search feature.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📚</div>
+                <h3>Manage Borrowing</h3>
+                <p>
+                    Keep track of borrowed books
+                    and their return dates.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2026 Online Library Management System</p>
+        <p>Read More. Learn More. Grow More.</p>
+    </footer>
+
+</body>
+</html>

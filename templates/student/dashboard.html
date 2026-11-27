@@ -1,0 +1,327 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Dashboard - Online Library</title>
+
+    <style>
+
+        /* GENERAL STYLING */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            min-height: 100%;
+        }
+
+        body {
+            min-height: 100vh;
+            width: 100%;
+            font-family: Arial, sans-serif;
+            color: white;
+
+            /* FULL SCREEN BACKGROUND IMAGE */
+
+            background-image:
+                linear-gradient(
+                    rgba(10, 25, 40, 0.40),
+                    rgba(10, 25, 40, 0.55)
+                ),
+                url("/static/images/home_bg.jpeg");
+
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+
+        /* NAVIGATION BAR */
+
+        header {
+            width: 100%;
+            padding: 20px 7%;
+
+            background: rgba(16, 45, 70, 0.75);
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        header h2 {
+            color: white;
+        }
+
+        header nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 22px;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        header a:hover {
+            color: #f5c66a;
+        }
+
+
+        /* WELCOME SECTION */
+
+        .welcome {
+            padding: 65px 7%;
+            background: transparent;
+        }
+
+        .welcome h1 {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .welcome p {
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+
+        /* MAIN DASHBOARD */
+
+        .main {
+            max-width: 1200px;
+            margin: 20px auto 60px;
+            padding: 20px;
+        }
+
+        .main h2 {
+            margin-bottom: 25px;
+            font-size: 27px;
+        }
+
+
+        /* DASHBOARD CARDS */
+
+        .cards {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(220px, 1fr));
+
+            gap: 25px;
+        }
+
+        .card {
+            display: block;
+            padding: 30px 25px;
+
+            background: rgba(255, 255, 255, 0.17);
+
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+
+            border: 1px solid rgba(255, 255, 255, 0.35);
+
+            border-radius: 12px;
+
+            text-decoration: none;
+            color: white;
+
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            background: rgba(255, 255, 255, 0.27);
+            transform: translateY(-6px);
+        }
+
+        .card h2 {
+            color: #ffe09a;
+            font-size: 23px;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: white;
+            line-height: 1.6;
+        }
+
+
+        /* FOOTER */
+
+        footer {
+            width: 100%;
+            padding: 22px;
+            text-align: center;
+
+            color: white;
+            background: rgba(16, 45, 70, 0.75);
+
+            margin-top: 50px;
+        }
+
+
+        /* RESPONSIVE DESIGN */
+
+        @media (max-width: 600px) {
+
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            header nav {
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .welcome {
+                padding: 40px 6%;
+            }
+
+            .welcome h1 {
+                font-size: 29px;
+            }
+
+            .main {
+                padding: 15px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVIGATION BAR -->
+
+    <header>
+
+        <h2>📚 Online Library</h2>
+
+        <nav>
+
+            <a href="{{ url_for('student_dashboard') }}">
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('view_books') }}">
+                Explore Books
+            </a>
+
+            <a href="{{ url_for('my_books') }}">
+                My Books
+            </a>
+
+            <a href="{{ url_for('profile') }}">
+                My Profile
+            </a>
+
+            <a href="{{ url_for('logout') }}">
+                Logout
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- WELCOME SECTION -->
+
+    <section class="welcome">
+
+        <h1>Welcome, {{ session.get('name', 'Student') }}!</h1>
+
+        <p>
+            Welcome to your online library.
+            Explore books, discover knowledge,
+            and manage your borrowed books easily.
+        </p>
+
+    </section>
+
+
+    <!-- DASHBOARD OPTIONS -->
+
+    <main class="main">
+
+        <h2>Student Dashboard</h2>
+
+        <div class="cards">
+
+            <a href="{{ url_for('view_books') }}" class="card">
+
+                <h2>📖 Explore Books</h2>
+
+                <p>
+                    Browse our collection and discover
+                    books from different categories.
+                </p>
+
+            </a>
+
+
+            <a href="{{ url_for('my_books') }}" class="card">
+
+                <h2>📚 My Books</h2>
+
+                <p>
+                    View your borrowed books and
+                    manage your returns.
+                </p>
+
+            </a>
+
+
+            <a href="{{ url_for('profile') }}" class="card">
+
+                <h2>👤 My Profile</h2>
+
+                <p>
+                    View your personal information
+                    and student account details.
+                </p>
+
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            © 2026 Online Library Management System
+        </p>
+
+        <p>
+            Read More. Learn More. Grow More.
+        </p>
+
+    </footer>
+
+</body>
+
+</html>
